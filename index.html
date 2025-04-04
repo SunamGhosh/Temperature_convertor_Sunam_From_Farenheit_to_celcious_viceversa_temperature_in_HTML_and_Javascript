@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h2 {
+            margin-bottom: 15px;
+            color: #444;
+        }
+
+        .input-group {
+            margin: 15px 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        input, select, textarea {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            text-align: center;
+        }
+
+        button {
+            background: #ff5f6d;
+            color: white;
+            font-size: 18px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #ff416c;
+        }
+
+        .output {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-top: 10px;
+            padding: 10px;
+            background: #f3f3f3;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Temperature Converter</h2>
+        
+        <div class="input-group">
+            <input type="text" id="VALUE1" placeholder="Enter temperature">
+        </div>
+
+        <div class="input-group">
+            <select id="selecttemp1">
+                <option value="Celsius">Celsius</option>
+                <option value="Fahrenheit">Fahrenheit</option>
+            </select>
+        </div>
+        <br>to</br>
+        <div class="input-group">
+            <select id="selecttemp2">
+                <option value="Fahrenheit">Fahrenheit</option>
+                <option value="Celsius">Celsius</option>
+            </select>
+        </div>
+
+        <button onclick="tempconvert()">Convert</button>
+
+        <div class="output" id="RESULT">Result: --</div>
+    </div>
+
+    <script>
+        function tempconvert() {
+            let v1 = document.getElementById("VALUE1").value;
+            let temp1 = document.getElementById("selecttemp1").value;
+            let temp2 = document.getElementById("selecttemp2").value;
+            let resultDiv = document.getElementById("RESULT");
+
+            // Ensure input is a valid number
+            if (isNaN(v1) || v1.trim() === "") {
+                resultDiv.innerHTML = " Please enter a valid number!";
+                resultDiv.style.color = "red";
+                return;
+            }
+
+            v1 = parseFloat(v1); // Convert input to a number
+
+            let convertedTemp;
+
+            if (temp1 === "Fahrenheit" && temp2 === "Celsius") {
+                convertedTemp = ((v1 - 32) * 5) / 9;  //farenheit to celcious convert
+            } 
+            else if (temp1 === "Celsius" && temp2 === "Fahrenheit") {
+                convertedTemp = ((v1 * 9) / 5) + 32;  //celcious to farenheit convert 
+            } 
+            else {
+                convertedTemp = v1; // If same units, no conversion needed
+            }
+
+            resultDiv.innerHTML = `Result: ${convertedTemp.toFixed(2)}° ${temp2}`;
+            resultDiv.style.color = "#333";
+        }
+    </script>
+
+</body>
+</html>
+
+
+
+
+<!-- formula to convert in farenheit = ((celsius*9)/5)+32
+formul to convert in celcious =((farenheit-32)*5)/9 -->
